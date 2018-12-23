@@ -1,0 +1,12 @@
+import vk_api
+
+vk = vk_api.VkApi(token="0cdf8ce7d394f9797aec0852e1be5f57f838ee130c8763d0a9bfc79cf81cf3baddaa6640ba434f47e9851")
+
+while True:
+
+    messages = vk.method("messages.getConversations", {"offset": 0, "count": 20, "filter": "unread"})
+    if messages["count"] >= 1:
+        user_id = messages["items"][0]["last_message"]["from_id"]
+        body = messages["items"][0]["last_message"]['text']
+        if body.lower() == "привет":
+            vk.method("messages.send", {"peer_id": id, "message": "Привет, дружок!"})
